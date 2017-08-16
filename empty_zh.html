@@ -176,7 +176,7 @@ Error message and password prompt
 
 <li>$:/view</li>
 
-<li>前言</li>
+<li>AWS 虛擬機20170816筆記</li>
 
 <li>Command Line</li>
 
@@ -187,6 +187,8 @@ Error message and password prompt
 <li>GCC: C/C++ Programming</li>
 
 <li>TiddlyWiki</li>
+
+<li>前言</li>
 
 </ul>
 </p>
@@ -11830,7 +11832,7 @@ Error message and password prompt
 <div created="20170709014747733" modified="20170709022437609" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Appearance</pre>
 </div>
-<div list="$:/ControlPanel 前言 [[Content (程式相關)]] [[Command Line]] TiddlyWiki [[Content (其它)]]" title="$:/StoryList">
+<div list="[[AWS 虛擬機20170816筆記]] 前言 [[Content (程式相關)]] [[Content (其它)]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20170709014423971" title="$:/temp/advancedsearch">
@@ -11849,7 +11851,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///D:/%E5%B7%A5%E4%BD%9C/new_page/empty_zh.html&quot;
+            &quot;text&quot;: &quot;file:///D:/%E5%B7%A5%E4%BD%9C/mywiki/empty_zh.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -11869,7 +11871,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/D:/%E5%B7%A5%E4%BD%9C/new_page/empty_zh.html&quot;
+            &quot;text&quot;: &quot;/D:/%E5%B7%A5%E4%BD%9C/mywiki/empty_zh.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -12006,12 +12008,16 @@ Error message and password prompt
 <div created="20170709014822071" modified="20170709014828692" title="$:/view">
 <pre>classic</pre>
 </div>
-<div created="20170709013252581" modified="20170709014654855" tags="home" title="前言">
-<pre>總之現在做的這個筆記，就是怕以後忘記，我要把精華濃縮在這裡。資工系的價值當然不只於此，因為這些東西必須實際操作後才能學會靈活運用的技術。如果以後這些技術被淘汰了，那麼這份網頁就變成考古學家研究的對象了。注意：本站僅提供學習的方法，自己還是要從網路上獲得資料。
-這裡的方法都盡量原始，才可以控制到最底層的東西，雖然可能不是最方便的，但是是最乾淨的。
-講話很直白，很口語，沒辦法，我沒空。
-許多連結是我想學但是沒空學的或沒空打的QAQ先放著有空再補上。
-上半部主要是跟程式、開發工具比較有關的部分，下半部是跟學科等等比較有關的部分。</pre>
+<div created="20170816153939529" modified="20170816155251338" tags="" title="AWS 虛擬機20170816筆記">
+<pre>1. 註冊aws帳號(需要信用卡，郵局VISA金融卡可用)
+2. 進到aws console後，選擇EC2產品
+3. EC2是前12個月免費試用，僅限有&quot;Free Tier&quot;標記的服務(每個月750小時，只要開機也就開始計費關機就停止計費(stop，不是terminate，terminate會殺掉整台機器以及資料，以小時為單位計費，但一個小時內多次重啟還是每次開機都)
+4. 右上角可以選擇區域，就是要放置機器的地點，請留意，這會影響網路延遲，另外就是有時候會誤以為自己的機器不見了，其實只是切換錯地區
+5. 左上角選擇launch instance可以建立一台虛擬機
+6.選windows的就直接用遠端桌面連線就可以用GUI了，如果是linux的話GUI要自己裝，以下以ubuntu instance 為例，安裝教學來源出處為https://stackoverflow.com/questions/25657596/how-to-set-up-gui-on-amazon-ec2-ubuntu-server
+原本的解答還會灰屏，所以下方有一個人提供解決辦法，再多裝幾個軟體，以及再修改.vnc/xstartup(今天好累，晚點加詳述)
+之後用VNC viewer連過去13.58.57.204::5901就好了(今天好累，晚點加詳述)
+7. amazon 虛擬機有個security group就是像防火牆的概念，要注意是否有開5901 port，如果沒有，自己加一條規則。(今天好累，晚點加詳述)</pre>
 </div>
 <div created="20170709015150131" modified="20170709020119949" title="Command Line">
 <pre>! Command Line: 使用命令列、包含windows跟linux
@@ -12137,6 +12143,14 @@ C的編譯器用gcc(好像是自由軟體)，C++的編譯器是g++。
 
 至於安全性部分，如果是上傳到網頁空間，它本來就是唯讀的，所以不用擔心被修改。
 </pre>
+</div>
+<div created="20170709013252581" modified="20170816153935897" tags="home" title="前言">
+<pre>總之現在做的這個筆記，就是怕以後忘記，我要把精華濃縮在這裡。資工系的價值當然不只於此，因為這些東西必須實際操作後才能學會靈活運用的技術。如果以後這些技術被淘汰了，那麼這份網頁就變成考古學家研究的對象了。注意：本站僅提供學習的方法，自己還是要從網路上獲得資料。
+這裡的方法都盡量原始，才可以控制到最底層的東西，雖然可能不是最方便的，但是是最乾淨的。
+講話很直白，很口語，沒辦法，我沒空。
+許多連結是我想學但是沒空學的或沒空打的QAQ先放著有空再補上。
+上半部主要是跟程式、開發工具比較有關的部分，下半部是跟學科等等比較有關的部分。
+Learn from scratch!!</pre>
 </div>
 
 </div>
