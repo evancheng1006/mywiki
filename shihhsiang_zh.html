@@ -184,6 +184,8 @@ Error message and password prompt
 
 <li>20190213 工作筆記</li>
 
+<li>20190218 工作筆記</li>
+
 <li>20190223 工作筆記</li>
 
 <li>Autoware</li>
@@ -11848,7 +11850,7 @@ Error message and password prompt
 <div created="20170709022611544" modified="20190220014316931" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20170709013232433" modified="20170709014423972" title="$:/state/tab--1498284803">
+<div created="20170709013232433" modified="20190223051759199" title="$:/state/tab--1498284803">
 <pre>$:/core/ui/AdvancedSearch/Filter</pre>
 </div>
 <div created="20170709014801381" modified="20170709022553401" title="$:/state/tab--1963855381">
@@ -11860,14 +11862,14 @@ Error message and password prompt
 <div created="20170709014747733" modified="20190220014751057" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div created="20190220014320747" modified="20190220014323099" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Tools</pre>
+<div created="20190220014320747" modified="20190223051749678" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
-<div list="工作筆記 [[20190213 工作筆記]] [[20190223 工作筆記]]" title="$:/StoryList">
+<div list="前言 工作筆記 [[20190218 工作筆記]] 程式相關筆記" title="$:/StoryList">
 <pre></pre>
 </div>
-<div created="20170709013232432" modified="20170709014423971" title="$:/temp/advancedsearch">
-<pre>[!is[system]sort[title]]</pre>
+<div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
+<pre>[all[shadows]sort[title]]</pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
 <pre>{
@@ -12093,17 +12095,174 @@ sudo apt-get install nvidia-410
 
 </pre>
 </div>
-<div created="20190223021815489" modified="20190223031700709" tags="" title="20190223 工作筆記">
+<div created="20190223052043958" modified="20190223055829793" title="20190218 工作筆記">
+<pre>Autoware 照著官方網站所做的去安裝，
+https://github.com/CPFL/Autoware/wiki/Generic-x86-Docker
+執行後有個問題
+
+在使用Autoware的Runtime Manager(在.ro)試圖讀取.bag檔的時候（在Simulation項目裡面載入），關於時長等資訊有跑出來，右下角的RViz按鈕按下去卻一直沒跑出視窗。一看Console跑出以下的訊息：
+
+```
+['sh', '-c', '$(rospack find runtime_manager)/../../../.config/rviz/cmd.sh']
+pid=812
+sched policy=OTHER prio=0
+pid=813
+sched policy=OTHER prio=0
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+Could not initialize OpenGL for RasterGLSurface, reverting to RasterSurface.
+libGL error: No matching fbConfigs or visuals found
+libGL error: failed to load driver: swrast
+/home/autoware/Autoware/ros/src/util/packages/runtime_manager/../../../.config/rviz/cmd.sh: line 43:   820 Segmentation fault      (core dumped) rosrun rviz rviz
+```
+
+註：kinetic是ROS的版本名稱
+
+原因是nvidia-docker2不支援OpenGL。但為什麼我會裝nvidia-docker2呢？
+因為官方手冊https://github.com/CPFL/Autoware/wiki/Generic-x86-Docker這樣寫：
+
+Check if the nvidia-docker service runs with
+
+```
+$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi
+```
+Note: If you run into the following error
+
+```
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:348: starting container process caused &quot;exec: \&quot;nvidia-smi\&quot;: executable file not found in $PATH&quot;: unknown.
+```
+Try Following these nvidia-docker [[instructions|https://github.com/NVIDIA/nvidia-docker]]
+
+結果在Nvidia-docker的github上，它說
+
+Ubuntu 14.04/16.04/18.04, Debian Jessie/Stretch
+Ubuntu will install docker.io by default which isn't the latest version of Docker Engine. This implies that you will need to pin the version of nvidia-docker. [[See more information here.|https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-20-if-im-not-using-the-latest-docker-version]]
+
+```
+# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo apt-get purge -y nvidia-docker
+
+# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo apt-get install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
+```
+它要我們裝nvidia-docker2。
+可是這一版好像不支援OpenGL([[nvidia-docker 1 can run OpenGL applications; nvidia-docker 2 can't #534|https://github.com/NVIDIA/nvidia-docker/issues/534]]）所以我就忽略Autoware官網上說打
+
+```
+$ sudo nvidia-docker run --rm nvidia/cuda nvidia-smi
+```
+會出現的錯誤訊息，直接用下去。
+
+
+
+除此之外，dockerfile我有修改後重新編譯，依照Autoware的官方步驟
+
+Run build.sh kinetic if you use Ubuntu 16.04.
+
+```
+$ sudo sh build.sh kinetic
+```
+
+build.sh內容：
+
+```
+docker build -t autoware-kinetic -f Dockerfile.kinetic ./../.. --no-cache
+```
+
+然後中間build太久電腦因為不明原因掛掉（我執行別的東西），只好重新再build。但是這一次我就把&lt;$codeblock code='--no-cache' /&gt;指令去掉，這樣才不會build到一半掛掉很心痛。
+
+其中，dockerfile最後我還加了一段
+用來測試OpenGL的
+參考 https://www.smwenku.com/a/5bca51492b71777351974eb6?fbclid=IwAR0dpDE5Ur3cEFo7B1xgulS22kRr8GDE2BxemGkuEYltbWuAIcuId7ToEHs
+
+```
+# install GLX-Gears
+RUN sudo apt-get update &amp;&amp; sudo apt-get install -y \
+    mesa-utils &amp;&amp; \
+    sudo rm -rf /var/lib/apt/lists/*
+
+# nvidia-docker hooks
+LABEL com.nvidia.volumes.needed=&quot;nvidia_driver&quot;
+ENV PATH /usr/local/nvidia/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+```
+這樣之後執行這台虛擬機器(進入container)的時候就可以打
+
+```
+glxgears
+```
+指令測試OpenGL。
+之後就用這個編譯出來的docker image來執行就可以了
+
+
+
+
+註：之前先搜尋
+&lt;$codeblock code='libGL error: No matching fbConfigs or visuals found'/&gt;
+找到別人說是
+[[/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1.2.0有时候会链接中断或者指向错误的链接|https://blog.csdn.net/wangchuansnnu/article/details/44227811]]，但明明在這裡都是正常阿？後來發現真的是nvidia-docker要用舊版的…不然RViz跑不起來，就不用玩Autoware了。。。
+
+</pre>
+</div>
+<div created="20190223021815489" modified="20190223051247795" tags="" title="20190223 工作筆記">
 <pre>cheat sheet
 
+查看檔案
+
+```
+aws s3 ls s3://&lt;bucket name&gt;/path-to-file
+```
+注意：查看資料夾的內容必須在末端加入斜線/
+不然只是看到資料夾的名稱而己
+例如
+
+```
+aws s3 ls s3://&lt;bucket name&gt;/gjmi
+```
+跟
+
+```
+aws s3 ls s3://&lt;bucket name&gt;/gjmi/
+```
+不同（假設gjmi是個資料夾)
+
+其實這個指令只是查Prefix，也就是說，你打
+
+```
+s3://&lt;bucket name&gt;/gjm
+```
+也會搜尋得到這個資料夾
+
+
 用aws的指令列介面做aws s3 下載指令
-單一檔案  aws s3 copy &lt;source&gt; &lt;destination&gt;
+
+單一檔案
+
+ ```
+aws s3 copy &lt;source&gt; &lt;destination&gt;
+```
 整個某資料夾 aws s3 sync &lt;source&gt; &lt;destination&gt;
 
 
 aws s3 sync 如果下載到一半按Ctrl+C 終止（SIGINT，參http://myblog-maurice.blogspot.com/2011/12/linux-signal.html）那麼它會把
 下載到一半的檔案直接刪除。
 用aws s3 sync的好處是會顯示進度條。
+AWS用的單位是GiB(2^30) 不是 GB(10^9)
+https://en.wikipedia.org/wiki/Gibibyte
+
 
 catkin_make
 cmake
@@ -12199,7 +12358,7 @@ $$$
 
 !! Links</pre>
 </div>
-<div created="20170709021042709" modified="20170709022121542" title="GCC: C/C++ Programming">
+<div created="20170709021042709" modified="20190223051528591" title="GCC: C/C++ Programming">
 <pre>!要如何用C/C++語言撰寫程式碼、gcc/g++編譯、命令列執行程式
 !!架設開發環境
 !!!C和C++有什麼不同？要用C還是C++？
@@ -12222,10 +12381,12 @@ C的編譯器用gcc(好像是自由軟體)，C++的編譯器是g++。
 &lt;$codeblock code='sudo dpkg -i libstdc++-4.9-dev_4.9.2-10_i386.deb' /&gt;
 再打
 &lt;$codeblock code='sudo dpkg -i g++-4.9_4.9.2-10_i386.deb' /&gt;
-然後裝完此安裝包後就可使用，編譯指令請打&lt;$codeblock code='g++-4.9' /&gt;，而不要打&lt;$codeblock code='g++ /&gt;。
+然後裝完此安裝包後就可使用，編譯指令請打&lt;$codeblock code='g++-4.9' /&gt;，而不要打&lt;$codeblock code='g++' /&gt;。
 
 沒裝
-[img[img/not_installed.png]]</pre>
+[img[img/not_installed.png]]
+
+</pre>
 </div>
 <div created="20170709020512287" modified="20170709020927827" title="TiddlyWiki">
 <pre>本網站是用TiddlyWiki
@@ -12281,9 +12442,11 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190223031940330" title="工作筆記">
+<div created="20190223023233066" modified="20190223052033942" title="工作筆記">
 <pre>
 [[20190223 工作筆記]]
+
+[[20190218 工作筆記]]
 
 [[20190213 工作筆記]]</pre>
 </div>
@@ -12306,16 +12469,22 @@ bin -&gt; binary files
 
 [[20190219 工作筆記]]</pre>
 </div>
-<div created="20170709013454581" modified="20190223023043911" tags="home content" title="程式相關筆記">
+<div created="20170709013454581" modified="20190223051858727" tags="home content" title="程式相關筆記">
 <pre>[[常用詞匯]]
 
+[[AWS+AWS CLI]]
+
 [[Android APP]]
+
+[[Autoware]]
 
 [[AVR]]
 
 [[AVR+USB]]
 
 [[Command Line]]
+
+[[Docker]]
 
 [[GCC: C/C++ Programming]]
 
