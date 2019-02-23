@@ -186,6 +186,8 @@ Error message and password prompt
 
 <li>20190218 工作筆記</li>
 
+<li>20190222 工作筆記</li>
+
 <li>20190223 工作筆記</li>
 
 <li>Autoware</li>
@@ -11865,7 +11867,7 @@ Error message and password prompt
 <div created="20190220014320747" modified="20190223051749678" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Open</pre>
 </div>
-<div list="前言 工作筆記 [[20190218 工作筆記]] 程式相關筆記" title="$:/StoryList">
+<div list="[[20190222 工作筆記]] 前言 工作筆記 [[20190223 工作筆記]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -12217,7 +12219,11 @@ glxgears
 
 </pre>
 </div>
-<div created="20190223021815489" modified="20190223051247795" tags="" title="20190223 工作筆記">
+<div created="20190223073627369" modified="20190223073720983" title="20190222 工作筆記">
+<pre>Ctrl+Shift+T 新終端機分頁
+Ctrl+PageUp/Ctrl+PageDown 換分頁</pre>
+</div>
+<div created="20190223021815489" modified="20190223073616792" tags="" title="20190223 工作筆記">
 <pre>cheat sheet
 
 查看檔案
@@ -12301,6 +12307,87 @@ https://stackoverflow.com/questions/30769236/how-to-escape-the-back-tick-charact
 
 
 
+
+如何列出所有 aws s3 bucket中的檔案？
+https://www.linkedin.com/pulse/how-scan-millions-files-aws-s3-jishnu-kinwar/
+
+
+
+Rviz可以讀點雲檔(.pcd) 參考https://answers.ros.org/question/49744/how-to-visualize-point-cloud/
+
+但要讓它在ros底下跑
+Hi,
+
+Here are the steps:
+
+不要直接執行
+
+```
+rviz
+```
+而是輸入
+
+```
+rosrun rviz rviz
+```
+
+1) run rviz [rosrun rviz rviz]
+
+2) Add display type in rviz [Add-&gt;PointCloud2] or may be just PointCloud
+
+3) play your bag file [rosbag play abcdefg.bag]
+
+4) Browse for the topic in the added display type in rviz
+
+and if the point cloud is still not visible, change the display colors (because, usually it starts with white)
+
+cheers!
+
+
+
+https://answers.ros.org/question/195962/rviz-fixed-frame-world-does-not-exist/
+
+
+可以用
+
+```
+rosbag info &lt;bag-file&gt;
+```
+去查，哪個topic有放送點雲資料。
+
+
+Linux get current time since Epoch &lt;$codeblock code='date +%s'/&gt;
+
+
+ 讀Lidar 資料注意事項
+
+必須在roscore啟動後，輸入
+&lt;$codeblock code='rosparam set /use_sim_time true'/&gt;
+這樣才能使tf使用檔案模擬的時間，而不是現在時間
+接著在rosplay的時候要加上'&lt;$codeblock code='--clock' /&gt;選項，讓rosbag play的時間是檔案的時間
+
+否則會出現
+'&lt;$codeblock code='Message removed because it is too old'/&gt;
+的錯誤
+
+接著執行tf的節點(Node)，如果有launch file 的話更好。這是用來標明座標系的。也就是'&lt;$codeblock code='-rosrun tf static_transform_publisher'/&gt;
+
+接著播放.bag檔
+
+```
+rosbag play --clock test.bag
+```
+
+
+在Rviz裡Displays-&gt;Global Options-&gt;Fixed Frame就可以抓到現在有哪些座標系了，選那個你的tf執行時
+會指明的座標系
+https://answers.ros.org/question/195962/rviz-fixed-frame-world-does-not-exist/
+
+接著在左下角Add按鈕，新增PointCloud2項目(看你的bag file是什麼，像我這個用PointCloud就會程式回報錯誤…)，訂閱到正確的Topic(請用rosbag info 指令查詢)，然後就可以播放了。
+
+Rviz的Left-click, middle-click, right-click都有功能…可以在打開Rviz視窗以後看下方說明。
+
+最後你可以把Rviz設定檔存起來，這樣以後就不用一個一個點了。
 
 
 
@@ -12442,9 +12529,11 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190223052033942" title="工作筆記">
+<div created="20190223023233066" modified="20190223073735168" title="工作筆記">
 <pre>
 [[20190223 工作筆記]]
+
+[[20190222 工作筆記]]
 
 [[20190218 工作筆記]]
 
