@@ -190,6 +190,12 @@ Error message and password prompt
 
 <li>20190223 工作筆記</li>
 
+<li>20190226 工作筆記</li>
+
+<li>20190227 工作筆記</li>
+
+<li>20190304 工作筆記</li>
+
 <li>Autoware</li>
 
 <li>AWS 虛擬機20170816筆記</li>
@@ -11864,10 +11870,10 @@ Error message and password prompt
 <div created="20170709014747733" modified="20190220014751057" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Info</pre>
 </div>
-<div created="20190220014320747" modified="20190223051749678" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Open</pre>
+<div created="20190220014320747" modified="20190227014054365" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="[[20190222 工作筆記]] 前言 工作筆記 [[20190223 工作筆記]]" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -11919,8 +11925,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20170709014707595" modified="20190223023230619" title="$:/temp/search">
-<pre>2019</pre>
+<div created="20170709014707595" modified="20190226062221980" title="$:/temp/search">
+<pre></pre>
 </div>
 <div created="20170709014750949" modified="20170709022512978" title="$:/theme">
 <pre>$:/themes/tiddlywiki/snowwhite</pre>
@@ -12396,6 +12402,106 @@ Rviz的Left-click, middle-click, right-click都有功能…可以在打開Rviz�
 
 </pre>
 </div>
+<div created="20190226013826051" modified="20190226071754893" title="20190226 工作筆記">
+<pre>https://mizukiplanet.wordpress.com/2016/04/07/ros%E5%88%9D%E5%AD%B8%E7%AD%86%E8%A8%98/
+
+rostopic echo
+
+0120 No Camera Data
+0119 Has Cam Data But Some Very Sparse
+
+rospy
+
+
+mmap read file
+https://techoverflow.net/2013/08/21/a-simple-mmap-readonly-example/
+
+
+(point cloud) pcd  file format 
+http://pointclouds.org/documentation/tutorials/pcd_file_format.php
+
+在linux裡面，要查系統函式或者C標準函式庫的函式怎麼用，可以用man指令
+例如 
+
+```
+man mmap
+man printf
+```
+
+Scrum開會方法
+https://buzzorange.com/techorange/2017/07/05/why-scrum-doesnt-work-in-asia/
+https://medium.com/doflowy/%E4%BB%80%E9%BA%BC%E6%98%AFscrum-%E4%B8%8D%E6%98%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB%E4%B9%9F%E8%83%BD%E6%87%82%E7%9A%84scrum%E5%85%A5%E9%96%80%E6%95%99%E5%AD%B8-1cc6683575f8
+
+https://buzzorange.com/techorange/2017/04/24/america-coder-life/
+
+https://buzzorange.com/techorange/2017/04/10/how-to-get-usa-softjob/
+
+Github 右上角有Star
+
+Why python slow https://buzzorange.com/techorange/2018/08/14/python-is-slow/
+
+
+要建立Ground Truth
+https://github.com/Cartucho/OpenLabeling
+
+Ubuntu find opencv version
+https://stackoverflow.com/questions/8804064/find-opencv-version-installed-on-ubuntu
+
+file extension correctly in python
+https://stackoverflow.com/questions/541390/extracting-extension-from-filename-in-python
+
+
+</pre>
+</div>
+<div created="20190227014130358" modified="20190227051558237" title="20190227 工作筆記">
+<pre>folder vs directory
+
+https://stackoverflow.com/questions/5078676/what-is-the-difference-between-a-directory-and-a-folder
+
+https://superuser.com/questions/169457/directory-vs-folder
+
+
+光達在車體會反光，可以在車體上貼東西吸收掉（任意方向都可？）（或反射到其它地方？）
+
+
+試圖將YOLO training的結果 導入OpenLabeling
+也有人提出新版建議
+https://github.com/Cartucho/OpenLabeling/issues/3
+
+太小的不要標
+
+被遮住的部份不要框
+
+有開避障的話 坐起來會斷斷續續的
+
+
+</pre>
+</div>
+<div created="20190304014446000" modified="20190304093608374" title="20190304 工作筆記">
+<pre>1. 建Ground truth圖片們裡面的人，很多都是黃衣黑褲警察
+2. 有機車載很多東西（變很寬）會變成車車
+3. 人騎在機車上，有時候會兩個都看到
+4. 交通燈不亮的話 有時候不會被辨識到，但仍有機會被辨識到
+5. 騎車只看到安全帽（其餘被車子遮住）有時候也看得到
+6. 台灣的行人號誌跟車子號誌的不同是在於：號誌形狀？交通燈排列方式直橫？小紅人小綠人
+7. 遠處的人到底要不要，就是從影像上也不是很清楚，但是由常識可以覺得是人。（不過人也有錯覺）
+8. 車在高架道路上，地面物體？or車在地面，高架道路上、停車場物體？
+9. 樹有支架 會變成人
+10. 18257792的鏡頭有些影像很不清楚 好像沒對到焦 2019-01-12-13-04-32
+11. multiple traffic lights...?
+12. 小貨車長得比較像car 還是 truck？
+13. 車子有有車燈的車跟沒車燈的車
+14. YOLO 標出來的Bounding Box 好像都會比物體本身大一點，也許是本來訓練的圖片包含物體邊綠外面一點點？這要看看原本資料長什麼樣
+15. traffic light，road sign只標面對自己的嗎，我是全標
+16. 有時看那個物體不一定知道是什麼，但是看那個物體附近，就會知道
+17. 交通號誌四五個燈的比較長，不一定會被看到
+18. 閃燈 會拍到沒有亮的時候
+19. 必須略過行人燈
+20. 台灣road sign綠底白字
+21. 機慢車兩段式左轉，行人優先 是路牌
+22. 交通錐太多，好煩，不清晰的就算了
+23. 交通錐會用石頭壓</pre>
+</div>
 <div created="20190223021608005" modified="20190223021810505" title="Autoware">
 <pre>Github: https://github.com/CPFL/Autoware
 
@@ -12529,8 +12635,13 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190223073735168" title="工作筆記">
-<pre>
+<div created="20190223023233066" modified="20190304014436921" title="工作筆記">
+<pre>[[20190304 工作筆記]]
+
+[[20190227 工作筆記]]
+
+[[20190226 工作筆記]]
+
 [[20190223 工作筆記]]
 
 [[20190222 工作筆記]]
