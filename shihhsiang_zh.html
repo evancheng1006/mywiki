@@ -198,6 +198,10 @@ Error message and password prompt
 
 <li>20190305 工作筆記</li>
 
+<li>20190306 工作筆記</li>
+
+<li>20190308 工作筆記</li>
+
 <li>Autoware</li>
 
 <li>AWS 虛擬機20170816筆記</li>
@@ -11875,7 +11879,7 @@ Error message and password prompt
 <div created="20190220014320747" modified="20190227014054365" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="[[20190305 工作筆記]]" title="$:/StoryList">
+<div list="前言 工作筆記 [[20190308 工作筆記]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -11927,7 +11931,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20170709014707595" modified="20190226062221980" title="$:/temp/search">
+<div created="20170709014707595" modified="20190308065639324" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20170709014750949" modified="20170709022512978" title="$:/theme">
@@ -12538,6 +12542,76 @@ https://github.com/pjreddie/darknet/issues/723
 
 </pre>
 </div>
+<div created="20190306033712259" modified="20190306050706241" title="20190306 工作筆記">
+<pre>https://blog.gtwang.org/programming/opencv-drawing-functions-tutorial/
+
+https://www.tutorialkart.com/opencv/python/opencv-python-get-image-size/
+
+https://blog.csdn.net/JNingWei/article/details/78753607
+
+https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_geometric_transformations/py_geometric_transformations.html</pre>
+</div>
+<div created="20190308025415308" modified="20190308075212260" title="20190308 工作筆記">
+<pre>Yolo 訓練的時候
+從darketnet53.conv.74開始會很久
+可以從yolov3.weights開始
+但是cfg file要寫max_batches
+
+Intel RealSense Camera Unboxing
+https://www.youtube.com/watch?v=VbBIQxSa_hU
+
+Intel RealSence 安裝步驟
+https://github.com/IntelRealSense/librealsense/blob/development/doc/distribution_linux.md
+
+Docker guest machine的linux kernel是用host的
+
+
+No frame received!
+https://www.itread01.com/content/1544187069.html
+
+https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf
+
+
+```
+# update firmware
+
+echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/aptrepo xenial main' | sudo tee /etc/apt/sources.list.d/realsensepublic.list 
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key 6F3EFCDE
+sudo apt-get update
+sudo apt-get install intel-realsense-dfu*
+wget https://downloadmirror.intel.com/28568/eng/D400_Series_Production_FW_5_11_1_100.zip
+unzip D400_Series_Production_FW_5_11_1_100.zip 
+lsusb
+# then you plug in realsense camera
+intel-realsense-dfu  -f -i Signed_Image_UVC_5_11_1_100.bin # force update firmware 
+intel-realsense-dfu -p
+```
+
+
+https://blog.longwin.com.tw/2017/01/docker-learn-initial-command-cheat-sheet-2017/
+
+
+```
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
+sudo add-apt-repository &quot;deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main&quot; -u
+sudo apt-get install librealsense2-dkms
+sudo apt-get -y install librealsense2-dkms
+sudo apt-get -y install librealsense2-utils
+sudo apt-get -y install librealsense2-dev
+sudo apt-get -y install librealsense2-dbg
+
+```
+
+```
+cd
+```
+cd 指令不打任何參數，就會換到家目錄(~)
+
+
+Docker file image 很多原始的東西都沒有，像是sudo, add-apt-repository
+
+</pre>
+</div>
 <div created="20190223021608005" modified="20190223021810505" title="Autoware">
 <pre>Github: https://github.com/CPFL/Autoware
 
@@ -12671,8 +12745,12 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190305035122785" title="工作筆記">
-<pre>[[20190305 工作筆記]]
+<div created="20190223023233066" modified="20190308025402634" title="工作筆記">
+<pre>[[20190308 工作筆記]]
+
+[[20190306 工作筆記]]
+
+[[20190305 工作筆記]]
 
 [[20190304 工作筆記]]
 
