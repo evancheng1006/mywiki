@@ -202,6 +202,8 @@ Error message and password prompt
 
 <li>20190308 工作筆記</li>
 
+<li>20190311 工作筆記</li>
+
 <li>Autoware</li>
 
 <li>AWS 虛擬機20170816筆記</li>
@@ -11879,7 +11881,7 @@ Error message and password prompt
 <div created="20190220014320747" modified="20190227014054365" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="前言 工作筆記 [[20190308 工作筆記]]" title="$:/StoryList">
+<div list="前言 工作筆記 [[20190311 工作筆記]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -12612,6 +12614,151 @@ Docker file image 很多原始的東西都沒有，像是sudo, add-apt-repositor
 
 </pre>
 </div>
+<div created="20190311050036762" modified="20190311091931537" title="20190311 工作筆記">
+<pre>https://stackoverflow.com/questions/1323956/how-to-redirect-output-of-an-already-running-process
+
+https://unix.stackexchange.com/questions/58550/how-to-view-the-output-of-a-running-process-in-another-bash-session
+
+If all you want to do is spy on the existing process, you can use strace -p1234 -s9999 -e write where 1234 is the process ID. (-s9999 avoids having strings truncated to 32 characters, and write the system call that produces output.) If you want to view only data written on a particular file descriptor, you can use something like strace -p1234 -e trace= -e write=3 to see only data written to file descriptor 3 (-e trace= prevents the system calls from being loged). That won't give you output that's already been produced.
+
+If the output is scrolling by too fast, you can pipe it into a pager such as less, or send it to a file with strace -o trace.log ….
+
+
+transfer learning fine tuning
+
+https://blog.csdn.net/lonely_dark_horse/article/details/53896837
+
+
+https://groups.google.com/forum/?nomobile=true#!msg/darknet/XFVOUKOt66w/HlsgjOeqEQAJ;context-place=msg/darknet/KUCidc8_rZc/cQ1jzvO7CAAJ
+
+
+Hi if you want to train on you own images, using the already trained weights on VOC
+
+you have 2 options,
+option 1
+1. extract first 30 layers:
+
+The network is - 
+
+30 conv    125  1 x 1 / 1    13 x  13 x1024   -&gt;    13 x  13 x 125
+
+31 detection
+
+
+using  partial comand
+darknet partial yolo-voc.cfg yolo-voc.weights yolo-voc.weights.30 30
+
+then retrain using these weghits
+you would need to set correct number of classes in .data file
+.names change your 4 names
+and in cfg file set filters and classes values correctly.
+
+follow the info here
+https://github.com/AlexeyAB/darknet#how-to-train-to-detect-your-custom-objects
+
+then run training using your amended files
+
+ darknet detector train yolo-voc_4classes.cfg yolo-voc.weights.30
+
+
+I did not try this but got this information from AlexAB
+
+
+
+option 2 
+
+mark your images using VOC labels , so you would detect all that the trained weights can 
+
+then you can continue training 
+
+
+
+you would need to chaned the cfg file, to have corrent number of filters, 
+ 
+you can continue training adding more to max_batches 
+using your new train images, containing VOC lables.
+
+
+Hope this helps you
+you can post an update on your results what you find out.
+M. 
+
+
+
+
+
+ 	riahi dorra 	
+18/10/31
+將內容翻譯成中文（繁體）  
+
+How to train YOLOV3 on my database and update only last few layers (to adjust detection for new objects) ?
+
+Thank you
+	alexbe 	
+18/10/31
+將內容翻譯成中文（繁體）  
+https://github.com/AlexeyAB/darknet#how-to-improve-object-detection
+
+to speedup training (with decreasing detection accuracy) do Fine-Tuning instead of Transfer-Learning, set param stopbackward=1 here: https://github.com/AlexeyAB/darknet/blob/6d44529cf93211c319813c90e0c1adb34426abe5/cfg/yolov3.cfg#L548 then do this command: ./darknet partial cfg/yolov3.cfg yolov3.weights yolov3.conv.81 81 will be created file yolov3.conv.81, then train by using weights file yolov3.conv.81 instead of darknet53.conv.74
+
+вторник, 30 октября 2018 г., 21:36:59 UTC+3 пользователь riahi dorra написал:
+
+
+    How to train YOLOV3 on my database and update only last few layers (to adjust detection for new objects) ?
+
+    Thank you
+
+1
+0
+	riahi dorra 	
+18/11/1
+將內容翻譯成中文（繁體）  
+Thank alexbe,
+If I want only do a fine tunning (without speedup), I change &quot;stopbackward = 1&quot; where exaclty and for wich layer (haw can I specify which layer I want to freeze it).
+Thanks
+
+On Tuesday, October 30, 2018 at 2:36:59 PM UTC-4, riahi dorra wrote:
+
+
+    How to train YOLOV3 on my database and update only last few layers (to adjust detection for new objects) ?
+
+
+https://groups.google.com/forum/#!searchin/darknet/yolov3$20fine$20tuning%7Csort:date/darknet/faCLO19cjj4/PZTEvyAKBwAJ
+
+
+
+darknet partial 
+
+
+https://groups.google.com/forum/#!topic/darknet/vY84eQGOj-A
+
+
+but this complains '-ldarknet' （Complain = 跑出錯誤)
+
+
+如果在安裝yolo34-gpu 出現這個
+
+  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -DUSE_CV=0 -I/usr/local/lib/python3.5/dist-packages/numpy/core/include -I/tmp/darknet/darknet-yolo34py-intergration-nocv/include -I/tmp/darknet/darknet-yolo34py-intergration-nocv/src -I/usr/include/python3.5m -c bridge.cpp -o build/temp.linux-x86_64-3.5/bridge.o -I/usr/include/python3.5m -I/usr/include/x86_64-linux-gnu/python3.5m
+  cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++
+  x86_64-linux-gnu-g++ -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.5/pydarknet.o build/temp.linux-x86_64-3.5/bridge.o -L. -L./__libdarknet -ldarknet -lm -lpthread -o build/lib.linux-x86_64-3.5/pydarknet.cpython-35m-x86_64-linux-gnu.so -lpython3.5m -Wl,-rpath,/usr/local/lib/python3.5/dist-packages/__libdarknet -Wl,-rpath,/usr/lib/python3/dist-packages/__libdarknet
+  /usr/bin/ld: cannot find -ldarknet
+  collect2: error: ld returned 1 exit status
+  error: command 'x86_64-linux-gnu-g++' failed with exit status 1
+  
+  ----------------------------------------
+  Failed building wheel for yolo34py-gpu
+
+請執行
+
+
+```
+
+sudo cp libdarknet.so /lib/x86_64-linux-gnu/
+```
+
+
+linux 排程 at 指令</pre>
+</div>
 <div created="20190223021608005" modified="20190223021810505" title="Autoware">
 <pre>Github: https://github.com/CPFL/Autoware
 
@@ -12745,8 +12892,10 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190308025402634" title="工作筆記">
-<pre>[[20190308 工作筆記]]
+<div created="20190223023233066" modified="20190311050031941" title="工作筆記">
+<pre>[[20190311 工作筆記]]
+
+[[20190308 工作筆記]]
 
 [[20190306 工作筆記]]
 
