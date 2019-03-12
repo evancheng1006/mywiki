@@ -204,11 +204,15 @@ Error message and password prompt
 
 <li>20190311 工作筆記</li>
 
+<li>20190312 工作筆記</li>
+
 <li>Autoware</li>
 
 <li>AWS 虛擬機20170816筆記</li>
 
 <li>Command Line</li>
+
+<li>Draft of '20190312 工作筆記'</li>
 
 <li>GCC: C/C++ Programming</li>
 
@@ -11881,7 +11885,7 @@ Error message and password prompt
 <div created="20190220014320747" modified="20190227014054365" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="前言 工作筆記 [[20190311 工作筆記]]" title="$:/StoryList">
+<div list="前言 [[Draft of '20190312 工作筆記']]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -12759,6 +12763,70 @@ sudo cp libdarknet.so /lib/x86_64-linux-gnu/
 
 linux 排程 at 指令</pre>
 </div>
+<div created="20190312051335524" modified="20190312095415913" title="20190312 工作筆記">
+<pre>[[Can you make a python subprocess output stdout and stderr as usual, but also capture the output as a string? [duplicate]|https://stackoverflow.com/questions/12270645/can-you-make-a-python-subprocess-output-stdout-and-stderr-as-usual-but-also-cap]]
+
+https://stackoverflow.com/questions/7681715/whats-the-difference-between-subprocess-popen-and-call-how-can-i-use-them
+
+tee command linux
+
+https://onebitbug.me/2012/11/03/python-duplicate-pipe/
+
+It’s sometimes convenient to pipe output of one program simultaneously to several other programs. For example, grep two different keywords from a long time running program’s output, e.g. output of varnishncsa.
+
+In Bash script, it’s quite simple. Create two (or more) fifo files, use tee to duplicate procuder program’s stdout to fifo files:
+
+mkfifo fifo1 fifo2
+producer | tee fifo1 fifo2 &gt;/dev/null &amp;
+customer1 &lt; fifo1 &amp;
+customer2 &lt; fifo2 &amp;
+wait
+
+But there are two cons:
+
+    it requires a filesystem that supports fifo file, NTFS only environment will not work.
+    it requires to run each program in backend, and wait explicitly.
+
+However, with bash, we can do it more elegantly:
+
+producer | tee &gt;(fifo1) &gt;(fifo2) &gt;/dev/null
+
+
+https://stackoverflow.com/questions/35003476/opencv-python-how-to-detect-if-a-window-is-closed
+
+
+while cv2.getWindowProperty('window-name', 0) &gt;= 0:
+
+[[How do I get a python program to do nothing|https://stackoverflow.com/questions/19632728/how-do-i-get-a-python-program-to-do-nothing/19632742]]
+
+```
+if condition:
+    pass
+```
+
+
+	while int(cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE)) &gt; 0 and cv2.waitKey(1) &lt; 0:
+		pass
+
+
+
+
+class_names_fn:/home/shihhsiang/Desktop/eval_20190121/cfg/80classes.names
+cfg_data:/home/shihhsiang/Desktop/eval_20190121/cfg/80classes.data
+cfg:/home/shihhsiang/Desktop/eval_20190121/cfg/yolov3-80classes.cfg
+valid:/home/shihhsiang/Desktop/eval_20190121/cfg/test-80classes.txt
+weights:/home/shihhsiang/Desktop/eval_20190121/yolov3.weights
+0(person): tp:21, fp:1, fn:11, precision:95.454545%, recall:65.625000%
+2(car): tp:271, fp:5, fn:16, precision:98.188406%, recall:94.425087%
+3(motorbike): tp:6, fp:0, fn:10, precision:100.000000%, recall:37.500000%
+5(bus): tp:4, fp:0, fn:1, precision:100.000000%, recall:80.000000%
+7(truck): tp:24, fp:0, fn:20, precision:100.000000%, recall:54.545455%
+9(traffic light): tp:86, fp:41, fn:86, precision:67.716535%, recall:50.000000%
+13(bench): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+32(sports ball): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+56(chair): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+</pre>
+</div>
 <div created="20190223021608005" modified="20190223021810505" title="Autoware">
 <pre>Github: https://github.com/CPFL/Autoware
 
@@ -12807,6 +12875,80 @@ $$$text/vnd.tiddlywiki&gt;text/plain
 $$$
 
 !! Links</pre>
+</div>
+<div created="20190312051335524" draft.of="20190312 工作筆記" draft.title="20190312 工作筆記" modified="20190312095909708" title="Draft of '20190312 工作筆記'">
+<pre>[[Can you make a python subprocess output stdout and stderr as usual, but also capture the output as a string? [duplicate]|https://stackoverflow.com/questions/12270645/can-you-make-a-python-subprocess-output-stdout-and-stderr-as-usual-but-also-cap]]
+
+https://stackoverflow.com/questions/7681715/whats-the-difference-between-subprocess-popen-and-call-how-can-i-use-them
+
+tee command linux
+
+https://onebitbug.me/2012/11/03/python-duplicate-pipe/
+
+It’s sometimes convenient to pipe output of one program simultaneously to several other programs. For example, grep two different keywords from a long time running program’s output, e.g. output of varnishncsa.
+
+In Bash script, it’s quite simple. Create two (or more) fifo files, use tee to duplicate procuder program’s stdout to fifo files:
+
+mkfifo fifo1 fifo2
+producer | tee fifo1 fifo2 &gt;/dev/null &amp;
+customer1 &lt; fifo1 &amp;
+customer2 &lt; fifo2 &amp;
+wait
+
+But there are two cons:
+
+    it requires a filesystem that supports fifo file, NTFS only environment will not work.
+    it requires to run each program in backend, and wait explicitly.
+
+However, with bash, we can do it more elegantly:
+
+producer | tee &gt;(fifo1) &gt;(fifo2) &gt;/dev/null
+
+
+https://stackoverflow.com/questions/35003476/opencv-python-how-to-detect-if-a-window-is-closed
+
+
+while cv2.getWindowProperty('window-name', 0) &gt;= 0:
+
+[[How do I get a python program to do nothing|https://stackoverflow.com/questions/19632728/how-do-i-get-a-python-program-to-do-nothing/19632742]]
+
+```
+if condition:
+    pass
+```
+
+
+	while int(cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE)) &gt; 0 and cv2.waitKey(1) &lt; 0:
+		pass
+
+
+
+
+class_names_fn:/home/shihhsiang/Desktop/eval_20190121/cfg/80classes.names
+cfg_data:/home/shihhsiang/Desktop/eval_20190121/cfg/80classes.data
+cfg:/home/shihhsiang/Desktop/eval_20190121/cfg/yolov3-80classes.cfg
+valid:/home/shihhsiang/Desktop/eval_20190121/cfg/test-80classes.txt
+weights:/home/shihhsiang/Desktop/eval_20190121/yolov3.weights
+0(person): tp:21, fp:1, fn:11, precision:95.454545%, recall:65.625000%
+2(car): tp:271, fp:5, fn:16, precision:98.188406%, recall:94.425087%
+3(motorbike): tp:6, fp:0, fn:10, precision:100.000000%, recall:37.500000%
+5(bus): tp:4, fp:0, fn:1, precision:100.000000%, recall:80.000000%
+7(truck): tp:24, fp:0, fn:20, precision:100.000000%, recall:54.545455%
+9(traffic light): tp:86, fp:41, fn:86, precision:67.716535%, recall:50.000000%
+13(bench): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+32(sports ball): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+56(chair): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+
+
+0(person): tp:19, fp:0, fn:13, precision:100.000000%, recall:59.375000%
+2(car): tp:223, fp:6, fn:64, precision:97.379913%, recall:77.700348%
+3(motorbike): tp:6, fp:0, fn:10, precision:100.000000%, recall:37.500000%
+5(bus): tp:3, fp:0, fn:2, precision:100.000000%, recall:60.000000%
+7(truck): tp:26, fp:0, fn:18, precision:100.000000%, recall:59.090909%
+9(traffic light): tp:147, fp:13, fn:25, precision:91.875000%, recall:85.465116%
+13(bench): tp:0, fp:1, fn:0, precision:0.000000%, recall:-100.000000%
+
+</pre>
 </div>
 <div created="20170709021042709" modified="20190223051528591" title="GCC: C/C++ Programming">
 <pre>!要如何用C/C++語言撰寫程式碼、gcc/g++編譯、命令列執行程式
@@ -12892,8 +13034,10 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190311050031941" title="工作筆記">
-<pre>[[20190311 工作筆記]]
+<div created="20190223023233066" modified="20190312051330947" title="工作筆記">
+<pre>[[20190312 工作筆記]]
+
+[[20190311 工作筆記]]
 
 [[20190308 工作筆記]]
 
