@@ -214,6 +214,10 @@ Error message and password prompt
 
 <li>20190318 工作筆記</li>
 
+<li>20190319 工作筆記</li>
+
+<li>20190320 工作筆記</li>
+
 <li>Autoware</li>
 
 <li>AWS 虛擬機20170816筆記</li>
@@ -11895,7 +11899,7 @@ Error message and password prompt
 <div created="20190220014320747" modified="20190227014054365" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
-<div list="[[20190318 工作筆記]]" title="$:/StoryList">
+<div list="[[20190320 工作筆記]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20170709013232432" modified="20190223051759199" title="$:/temp/advancedsearch">
@@ -11947,8 +11951,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20170709014707595" modified="20190315083858847" title="$:/temp/search">
-<pre></pre>
+<div created="20170709014707595" modified="20190320055731966" title="$:/temp/search">
+<pre>pwd</pre>
 </div>
 <div created="20170709014750949" modified="20170709022512978" title="$:/theme">
 <pre>$:/themes/tiddlywiki/snowwhite</pre>
@@ -12991,6 +12995,110 @@ vim command
 
 </pre>
 </div>
+<div created="20190319022804410" modified="20190319022940905" title="20190319 工作筆記">
+<pre>sublime按住shift後，滑鼠點擊文件各處，就會同時出現多個游標，這樣就可以在文件多處同時插入一段文字（可以直接用打的或是貼上)</pre>
+</div>
+<div created="20190320011719203" modified="20190320085732528" title="20190320 工作筆記">
+<pre>https://stackoverflow.com/questions/6499486/how-to-mark-an-array-in-posix-sh
+
+/bin/sh 是用posix 標準
+array並不在posix shell script 標準內
+
+https://stackoverflow.com/questions/1469849/how-to-split-one-string-into-multiple-strings-separated-by-at-least-one-space-in
+
+一種替代方法是，用帶有空格的變數，如：
+
+```
+gjmi=&quot;525 373 989&quot;;for gj in $gjmi; do echo $gj; done
+
+```
+它的執行結果是525 373 989三個數字各佔一行
+
+有趣的是，不可以直接這樣用：
+
+```
+for gj in &quot;525 373 989&quot;; do echo $gj; done
+
+```
+
+https://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+second argument of basename command
+
+325
+
+Usually you already know the extension, so you might wish to use:
+
+basename filename .extension
+
+for example:
+
+```
+basename /path/to/dir/filename.txt .txt
+```
+
+and we get
+
+filename
+
+shareimprove this answer
+answered Oct 19 '11 at 10:56
+Tomi Po
+3,275192
+
+    47
+    That second argument to basename is quite the eye-opener, ty kind sir/madam :) – akaIDIOT Jan 23 '13 at 9:37
+
+
+linux nesting while do loops
+
+https://stackoverflow.com/questions/31791324/bash-looping-over-multiple-input-sources-nesting-while-read-loops
+
+
+awk nr vs fnr
+https://blog.51cto.com/521cto/945683
+
+
+awk replace 3rd line with gj
+
+```
+seq 10 | awk -v replacement='gj' '{if (FNR==3) print replacement; if (FNR!=3) print}'
+```
+
+
+```
+seq 10 | tac
+seq 10 | rev
+```
+
+假設你有兩台主機，都有ssh的權限
+用sftp傳檔案的時候, 下載(get)和上傳(post) 可能速度不一樣
+https://ubuntuforums.org/showthread.php?t=2057479
+
+
+check integer
+
+https://unix.stackexchange.com/questions/151654/checking-if-an-input-number-is-an-integer
+
+```
+read scale
+if ! [ &quot;$scale&quot; -eq &quot;$scale&quot; ] 2&gt; /dev/null
+then
+    echo &quot;Sorry integers only&quot;
+fi
+```
+
+https://unix.stackexchange.com/questions/340440/bash-test-what-does-do
+
+```
+=~ means compare with regex
+
+```
+
+Put your variable inside double quote to prevent field splitting, which ate your spaces:
+shell 的雙引號可以保留多個連續空格
+
+https://unix.stackexchange.com/questions/273660/how-do-i-echo-a-string-with-multiple-spaces-in-bash-untouched</pre>
+</div>
 <div created="20190223021608005" modified="20190223021810505" title="Autoware">
 <pre>Github: https://github.com/CPFL/Autoware
 
@@ -13240,8 +13348,12 @@ Learn from scratch!!
 [[其它筆記]]
 </pre>
 </div>
-<div created="20190223023233066" modified="20190318011359806" title="工作筆記">
-<pre>[[20190318 工作筆記]]
+<div created="20190223023233066" modified="20190320011714668" title="工作筆記">
+<pre>[[20190320 工作筆記]]
+
+[[20190319 工作筆記]]
+
+[[20190318 工作筆記]]
 
 [[20190315 工作筆記]]
 
